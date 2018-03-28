@@ -1,3 +1,73 @@
-<p>
-  unanswered works!
-</p>
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-12">
+              <div class="card">
+                  <div class="card-header card-header-lex">
+                      <img src="https://upload.wikimedia.org/wikipedia/commons/c/cc/Amazon_Alexa_App_Logo.png" width="5px" />
+                      <h4 class="title-lex">Amazon Lex</h4>
+                      <p class="category-lex">AWS Lex Unanswered queries</p>
+                  </div>
+                  <div class="card-content table-responsive">
+                      <table class="table">
+                          <thead class="text-danger">
+                            <tr>
+                              <th>Query</th>
+                              <th>Channel</th>
+                              <th>User</th>
+                              <th>Date</th>
+                          </tr>
+                          </thead>
+                          <tbody>
+                              <tr *ngFor="let lex of  lexQueries">
+                                  <td>{{lex.query}}</td>
+                                  <td><i [class]="lex.channelLog" aria-hidden="true"></i>{{lex.channel}}</td>
+                                  <td>{{lex.userName}}</td>
+                                  <td class="text-danger">{{lex.date}}</td>
+                              </tr>
+                             
+                          </tbody>
+                      </table>
+
+                  </div>
+              </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="card">
+                <div class="card-header card-header-google">
+                    <img src="https://www.brandeps.com/logo-download/A/Api-ai-01.png" width="5px"/>  
+                  <h4 class="title">Google Dialogflow</h4>
+                    <p class="category">Google Dialogflow Unanswered queries</p>
+                </div>
+                <div class="card-content table-responsive">
+                    <table class="table">
+                        <thead class="text-danger">
+                            <tr>
+                                <th>Query</th>
+                                <th>Channel</th>
+                                <th>User</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let df of  dialogFlowQueries">
+                              <td>{{df.query}}</td>
+                              <td><i [class]="df.channelLog" aria-hidden="true"></i>
+                                {{df.channel}}
+                              </td>
+                              <td>{{df.userName}}</td>
+                              <td class="text-danger">{{df.date}}</td>
+                          </tr>
+                         
+                      </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+
+          
+      </div>
+  </div>
+</div>
