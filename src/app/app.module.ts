@@ -21,7 +21,14 @@ import { AwsSignature } from './aws/aws-signature';
 import { HttpClientModule } from '@angular/common/http';
 import { UnansweredComponent } from './unanswered/unanswered.component';
 import { ApisComponent } from './apis/apis.component';
+import { PatternComponent } from './configure/pattern/pattern.component';
+import { ChannelComponent } from './configure/channel/channel.component';
 import { ConfigureComponent } from './configure/configure.component';
+import { CIComponent } from './configure/ci-service/cis.component';
+import { PatternService } from '../services/patter.service';
+import { ChannelService } from '../services/channel.service';
+import { CIService } from '../services/ci.service';
+
 
 @NgModule({
   declarations: [
@@ -37,7 +44,10 @@ import { ConfigureComponent } from './configure/configure.component';
     TestSkillComponent,
     UnansweredComponent,
     ApisComponent,
-    ConfigureComponent
+    ConfigureComponent,
+    PatternComponent,
+    ChannelComponent,
+    CIComponent
 
   ],
   imports: [
@@ -49,7 +59,7 @@ import { ConfigureComponent } from './configure/configure.component';
     RouterModule,
     AppRoutingModule
   ],
-  providers: [AwsSignature],
+  providers: [AwsSignature,PatternService,ChannelService,CIService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

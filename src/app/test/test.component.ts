@@ -35,7 +35,7 @@ export class TestSkillComponent implements OnInit {
         }
         let httpHeader = new HttpHeaders(headers);
         let apiAiUrl = `https://lgp4j6q0kc.execute-api.us-east-1.amazonaws.com/dev?v=20180309&query=${query}&lang=en&sessionId=1234`;
-        this.request.apiai = `\n\nDialogFlow Request:\t \n \n${apiAiUrl}`;
+        this.request.apiai = `\n${apiAiUrl}`;
         
         this.http.get(apiAiUrl, { headers: httpHeader }).subscribe((res: any) => {
             //console.log("Success:" + JSON.stringify(res, null, 2));
@@ -66,7 +66,7 @@ export class TestSkillComponent implements OnInit {
         let headers = new HttpHeaders(authorization);
 
         let apiAlexaUrl = `https://runtime.lex.us-east-1.amazonaws.com/bot/EzipLexBot/alias/ezipLexBot/user/dummyuser/text`;
-        this.request.alexa = `\n\nAlexa Request: \n \n${apiAlexaUrl}`;
+        this.request.alexa = `\n \n${apiAlexaUrl}\n`;
         this.http.post(apiAlexaUrl, { 'inputText': input }, { headers: headers }).subscribe((res: any) => {
             this.response.alexa = res;
             console.log('Alexa Res',res);

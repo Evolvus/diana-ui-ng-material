@@ -1,43 +1,26 @@
 <div class="main-content">
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-md-8">
-        <div class="card">
-          <div class="card-header" data-background-color="red">
-            <h4 class="title">Configure</h4>
-            <p class="category">Configure Patterns</p>
-          </div>
-          <div class="card-content">
-            <!--Register form-->
-            <form>
-              <div class="row">
-
-                <div class="col-md-6">
-                  <div class="form-group form-black label-floating is-empty">
-                    <label class="control-label">Name</label>
-                    <input type="text" class="form-control">
-                  </div>
+    <div class="container-fluid">
+        <div class="places-buttons">
+            <div class="row">
+                <div class="col-md-9 col-md-offset-2">
+                    <div class="col-md-3">
+                        <a class="btn btn-info btn-block" routerLink="pattern" title="Regular expression configuration">Configure Pattern</a>
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-warning btn-block" routerLink="channel" title="Channel configuration like facebook,slack..etc">Configure Channel</a>
+                    </div>
+                    <div class="col-md-3">
+                            <a class="btn btn-danger waves-light" routerLink="cis" title="Conversatinal intellegense service">Configure CI Service</a>
+                    </div>
                 </div>
-              </div>
-              <div class="row">
-                <div class="col-md-6">
-                  <div class="form-group form-black label-floating is-empty">
-                    <label class="control-label">Pattern</label>
-                    <input type="text" class="form-control">
-                  </div>
-                </div>
-              </div>
+            </div>
 
-              <div class="text-center">
-                <button class="btn btn-deep-orange waves-light">Submit</button>
-              </div>
-
-            </form>
-            <!--/Register form-->
-          </div>
         </div>
-      </div>
+
+        <router-outlet></router-outlet>
+
+
+
 
     </div>
-  </div>
 </div>

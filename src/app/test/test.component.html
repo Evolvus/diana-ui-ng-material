@@ -21,17 +21,19 @@
                                     </div>
                                 
                                 </div>                                
-                                <div class="row">
+                                <div class="row"  *ngIf="request.alexa && request.apiai">
                                         <div class="col-md-6">
                                                 <div class="form-group form-black label-floating is-empty">
                                                         <!-- <label class="control-label">DialogFlow</label> -->
-                                                        <div style="word-wrap: break-word;color:#EA6F21 ">{{request.apiai}}</div>
+                                                        Google Dialog Flow Request
+                                                        <div class="alert alert-warning">{{request.apiai}}</div>
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group form-black label-floating is-empty">
                                                         <!-- <label class="control-label">Alexa</label> -->
-                                                        <div style="word-wrap: break-word;color:#00CAFF">{{request.alexa}}</div>
+                                                        Amazon Lex Request
+                                                        <div class="alert alert-info">{{request.alexa}}</div>
                                                     
                                                 </div>
                                             </div>
@@ -43,26 +45,26 @@
             </div>
                 <div class="row">
 
-                <div class="col-md-6">
+                <div class="col-md-6"  *ngIf="response.apiai!==''">
                     <div class="card card-profile">
                         <div class="card-avatar">
                             <a href="#pablo">
-                                <img class="img" src="https://www.brandeps.com/logo-download/A/Api-ai-01.png" />
+                                <img class="img" src="assets/img/api-icon.png" />
                             </a>
                         </div>
         
                         <div class="content">
                             <h6 class="category text-gray">Google DialogFlow</h6>
                             <h4 class="card-title">Response</h4>
-                            <pre style="color:green;text-align:left" *ngIf="response.apiai!==''">
-                               {{response.apiai | json}}
+                            <pre style="color:green;text-align:left" >
+                                    <section><code> {{response.apiai | json}}</code></section>
                             </pre>
                             <button class="btn btn-danger btn-round" (click)="response.apiai='';request.apiai=''">Clear</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-md-6">
+                <div class="col-md-6"  *ngIf="response.alexa!==''">
                         <div class="card card-profile">
                             <div class="card-avatar">
                                 <a href="#pablo">
@@ -73,8 +75,8 @@
                             <div class="content">
                                 <h6 class="category text-gray">Amazon Lex</h6>
                                 <h4 class="card-title">Response</h4>
-                                <pre style="color:black;text-align:left" *ngIf="response.alexa!==''">
-                                        {{response.alexa |  json}}
+                                <pre style="color:black;text-align:left">
+                                        <section><code>{{response.alexa |  json}}</code></section>
                                 </pre>
                                 <button class="btn btn-danger btn-round" (click)="response.alexa='';request.alexa=''">Clear</button>
                             </div>
