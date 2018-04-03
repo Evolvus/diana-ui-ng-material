@@ -15,6 +15,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
     channelForm: FormGroup;
     channels: Channel[];
     private subscription: Subscription;
+    
 
     constructor(private channelService: ChannelService) { }
 

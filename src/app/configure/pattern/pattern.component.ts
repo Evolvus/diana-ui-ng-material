@@ -25,6 +25,7 @@ export class PatternComponent implements OnInit, OnDestroy {
     });
     this.patterns = this.patternService.getPatterns();
     this.subscription = this.patternService.patternsChanged.subscribe((patrns: Pattern[]) => {
+      console.log("Subscribed data:",patrns);
       this.patterns = patrns;
     });
 
