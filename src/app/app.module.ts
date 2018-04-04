@@ -28,6 +28,7 @@ import { CIComponent } from './configure/ci-service/cis.component';
 import { PatternService } from '../services/patter.service';
 import { ChannelService } from '../services/channel.service';
 import { CIService } from '../services/ci.service';
+import { Constants } from '../services/constant.service';
 
 
 @NgModule({
@@ -59,7 +60,7 @@ import { CIService } from '../services/ci.service';
     RouterModule,
     AppRoutingModule
   ],
-  providers: [AwsSignature,PatternService,ChannelService,CIService],
+  providers: [AwsSignature,PatternService,ChannelService,CIService,Constants],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

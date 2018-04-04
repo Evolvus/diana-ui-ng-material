@@ -2,6 +2,7 @@ import { Pattern } from '../models/pattern';
 import { Subject } from 'rxjs/Subject';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Constants } from './constant.service';
 
 @Injectable()
 export class PatternService {
@@ -12,7 +13,7 @@ export class PatternService {
         'Content-Type': 'application/json'
     });
 
-    constructor(private http: HttpClient) {
+    constructor(private http: HttpClient,private constants:Constants) {
         this.patterns=this.getPatterns();
         // this.patterns.push(...[
         //     new Pattern('Account No', '/^\d{10}$/'),
@@ -21,7 +22,7 @@ export class PatternService {
     }
 
     getPatterns() : Pattern[] {
-        this.http.get('http://192.168.1.51:3000/blacklist').subscribe((allPatterns:Pattern[])=>{
+        this.http.get(`${this.constants.DIANA_SERVER_URL}/blacklist`).subscribe((allPatterns:Pattern[])=>{
             console.log("GetPatterns:",allPatterns);
             this.patterns =  allPatterns;
             console.log("This patterns:",this.patterns);
@@ -35,7 +36,7 @@ export class PatternService {
 
     public addPattern(pattern: Pattern) {
 
-        this.http.post('http://192.168.1.51:3000/blacklist',pattern, { headers: this.headers })
+        this.http.post(`${this.constants.DIANA_SERVER_URL}/blacklist`,pattern, { headers: this.headers })
         .subscribe((res)=>{
             this.patternsChanged.next(this.getPatterns());
         },err =>{

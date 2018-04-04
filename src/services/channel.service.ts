@@ -2,6 +2,7 @@ import { Channel } from '../models/channel';
 import { Subject } from 'rxjs/Subject';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Constants } from './constant.service';
 
 
 
@@ -16,7 +17,7 @@ export class ChannelService {
         'Content-Type': 'application/json'
     });
 
-    constructor(private http:HttpClient) {
+    constructor(private http:HttpClient,private constants:Constants) {
         this.channels = this.getChannels();
         // this.channels.push(...[
         //     new Channel('Facebook', 'https://evolvus.diana.com/ai/facebook', 'ANHJD7DHJDF-YDJKJJH7'),
@@ -27,7 +28,7 @@ export class ChannelService {
 
     getChannels(): Channel[] {
 
-        this.http.get('http://192.168.1.51:3000/channel').subscribe((chnls:Channel[])=>{
+        this.http.get(`${this.constants.DIANA_SERVER_URL}/channel`).subscribe((chnls:Channel[])=>{
             this.channels =  chnls;
             this.channelsChanged.next(this.channels);
             return this.channels.slice();
@@ -37,7 +38,7 @@ export class ChannelService {
     }
 
     public addChannel(channel:Channel){
-        this.http.post('http://192.168.1.51:3000/channel',channel, { headers: this.headers })
+        this.http.post(`${this.constants.DIANA_SERVER_URL}/channel`,channel, { headers: this.headers })
         .subscribe((res)=>{
             this.channelsChanged.next(this.getChannels());
         },err =>{
