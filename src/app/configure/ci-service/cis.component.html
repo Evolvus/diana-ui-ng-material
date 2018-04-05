@@ -23,7 +23,7 @@
                   </div>
                   <div class="row">
                     <div class="col-md-6">
-                      <div class="form-group form-black label-floating is-empty">
+                      <div class="form-group form-black is-empty">
                         <label class="control-label">Access Key</label>
                         <input type="text" class="form-control" formControlName="accessKey">
                       </div>
@@ -31,15 +31,28 @@
                   </div>
                   <div class="row">
                       <div class="col-md-6">
-                        <div class="form-group form-black label-floating is-empty">
+                        <div class="form-group form-black is-empty">
                           <label class="control-label">Secret Key</label>
                           <input type="text" class="form-control" formControlName="secretKey">
                         </div>
                       </div>
                     </div>
+
+                    <div class="row">
+                      <div class="col-md-4">
+                        <div class="form-group form-black is-empty">
+                          <label class="switch">
+                            <input type="checkbox" formControlName="enabled">
+                            <span class="slider round"></span>
+                          </label>
+                          <h5>{{ this.ciForm.value.enabled ? 'Enable':'Disable'}} </h5>
+                        </div>
+                      </div>
+                    </div>
     
                   <div class="text-center">
-                    <button class="btn btn-success waves-light" [disabled]='!this.ciForm.valid'>Submit</button>
+                    <button class="btn btn-success waves-light" [disabled]='!this.ciForm.valid'>{{btnName}}</button>
+                    <button class="btn btn-danger waves-light" (click)="!this.ciForm.reset()">Clear</button>
                   </div>
     
                 </form>
@@ -64,6 +77,7 @@
                                 <th>Name</th>
                                 <th>Access Key</th>
                                 <th>Secret Key</th>
+                                <th>Action</th>  
                             </tr>
                         </thead>
                         <tbody *ngFor="let ci of ciModels">
@@ -71,6 +85,14 @@
                                 <td>{{ci.name}}</td>
                                 <td>{{ci.accessKey}}</td>
                                 <td>{{ci.secretKey}}</td>
+                                <td class="td-actions text-right">
+                                  <button type="button" rel="tooltip" title="Edit Channel" (click)="editCi(ci)" class="btn btn-primary btn-simple btn-xs">
+                                    <i class="material-icons">edit</i>
+                                  </button>
+                                  <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                    <i class="material-icons">close</i>
+                                  </button>
+                                </td>
                             </tr>
                         </tbody>
                     </table>

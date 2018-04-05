@@ -40,9 +40,23 @@ export class PatternService {
             .subscribe((res) => {
                 this.patternsChanged.next(this.getPatterns());
             }, err => {
-                console.log("Error  Response", err)
+                console.log("Error  addPattern Response", err)
             });
     }
+
+
+    public updatePattern(pattern: Pattern) {
+
+        this.http.put(`${this.constants.DIANA_SERVER_URL}/blacklist/${pattern._id}`, pattern, { headers: this.headers })
+            .subscribe((res) => {
+                this.patternsChanged.next(this.getPatterns());
+            }, err => {
+                console.log("Error  updatePattern Response", err)
+            });
+    }
+
+
+
 
 
 }

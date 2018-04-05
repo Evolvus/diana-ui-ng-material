@@ -11,13 +11,13 @@ export class ChannelService {
 
 
 
-    channels: Channel[]=[];
-    channelsChanged=new Subject<Channel[]>();
+    channels: Channel[] = [];
+    channelsChanged = new Subject<Channel[]>();
     headers = new HttpHeaders({
         'Content-Type': 'application/json'
     });
 
-    constructor(private http:HttpClient,private constants:Constants) {
+    constructor(private http: HttpClient, private constants: Constants) {
         this.channels = this.getChannels();
         // this.channels.push(...[
         //     new Channel('Facebook', 'https://evolvus.diana.com/ai/facebook', 'ANHJD7DHJDF-YDJKJJH7'),
@@ -28,8 +28,8 @@ export class ChannelService {
 
     getChannels(): Channel[] {
 
-        this.http.get(`${this.constants.DIANA_SERVER_URL}/channel`).subscribe((chnls:Channel[])=>{
-            this.channels =  chnls;
+        this.http.get(`${this.constants.DIANA_SERVER_URL}/channel`).subscribe((chnls: Channel[]) => {
+            this.channels = chnls;
             this.channelsChanged.next(this.channels);
             return this.channels.slice();
         });
@@ -37,15 +37,31 @@ export class ChannelService {
 
     }
 
-    public addChannel(channel:Channel){
-        
-        this.http.post(`${this.constants.DIANA_SERVER_URL}/channel`,channel, { headers: this.headers })
-        .subscribe((res)=>{
-            this.channelsChanged.next(this.getChannels());
-        },err =>{
-            console.log("Error  Response",err)
-        });
-        
+    /**
+     * This method expect channel Object/Model to save into database.
+     * @param channel 
+     */
+    public addChannel(channel: Channel) {
+        this.http.post(`${this.constants.DIANA_SERVER_URL}/channel`, channel, { headers: this.headers })
+            .subscribe((res) => {
+                this.channelsChanged.next(this.getChannels());
+            }, err => {
+                console.log("Error addChannel  Response", err)
+            });
+
+    }
+
+    /**
+     * This method expect channel Object/Model  to update the channel._id parameter.
+     * @param channel 
+     */
+    public updateChannel(channel: Channel) {
+        this.http.put(`${this.constants.DIANA_SERVER_URL}/channel/${channel._id}`, channel, { headers: this.headers })
+            .subscribe((res) => {
+                this.channelsChanged.next(this.getChannels());
+            }, err => {
+                console.log("Error updateChannel Response", err)
+            });
     }
 
 

@@ -12,7 +12,7 @@
               <div class="row">
 
                 <div class="col-md-6">
-                  <div class="form-group form-black label-floating is-empty">
+                  <div class="form-group form-black  is-empty">
                     <label class="control-label">Name</label>
                     <input type="text" class="form-control" formControlName="name">
                   </div>
@@ -20,15 +20,28 @@
               </div>
               <div class="row">
                 <div class="col-md-6">
-                  <div class="form-group form-black label-floating is-empty">
+                  <div class="form-group form-black  is-empty">
                     <label class="control-label">Pattern</label>
                     <input type="text" class="form-control" formControlName="pattern">
                   </div>
                 </div>
               </div>
 
+              <div class="row">
+                <div class="col-md-4">
+                  <div class="form-group form-black is-empty">
+                    <label class="switch">
+                      <input type="checkbox" formControlName="enabled">
+                      <span class="slider round"></span>
+                    </label>
+                    <h5>{{ this.patternForm.value.enabled ? 'Enable':'Disable'}} </h5>
+                  </div>
+                </div>
+              </div>
+
               <div class="text-center">
-                  <button class="btn btn-success waves-light" [disabled]='!this.patternForm.valid'>Submit</button>
+                  <button class="btn btn-success waves-light" [disabled]='!this.patternForm.valid'>{{btnName}}</button>
+                  <button class="btn btn-danger waves-light" (click)="!this.patternForm.reset()">Clear</button>
               </div>
 
             </form>
@@ -53,12 +66,21 @@
                         <tr>
                             <th>Name</th>
                             <th>Pattern</th>
+                            <th>Action</th>  
                         </tr>
                     </thead>
                     <tbody *ngFor="let pattern of patterns">
                         <tr>
                             <td>{{pattern.name}}</td>
                             <td>{{pattern.pattern}}</td>
+                            <td class="td-actions text-right">
+                              <button type="button" rel="tooltip" title="Edit Channel" (click)="editPattern(pattern)" class="btn btn-primary btn-simple btn-xs">
+                                <i class="material-icons">edit</i>
+                              </button>
+                              <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                <i class="material-icons">close</i>
+                              </button>
+                            </td>
                         </tr>
                     </tbody>
                 </table>

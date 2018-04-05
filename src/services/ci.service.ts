@@ -42,4 +42,13 @@ export class CIService {
         });
     }
 
+    public updateCiModel(ciModel:CIModel){
+        this.http.put(`${this.constants.DIANA_SERVER_URL}/ciservice/${ciModel._id}`,ciModel, { headers: this.headers })
+        .subscribe((res)=>{
+            this.ciModelsChanged.next(this.getCiModels());
+        },err =>{
+            console.log("Error  Response",err)
+        });
+    }
+
 }

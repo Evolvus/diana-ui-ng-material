@@ -15,16 +15,19 @@ export class ChannelComponent implements OnInit, OnDestroy {
     channelForm: FormGroup;
     channels: Channel[];
     private subscription: Subscription;
-    
-    
+    btnName: string;
+    channel:Channel;
+
 
     constructor(private channelService: ChannelService) { }
 
     ngOnInit() {
+        this.btnName = 'Submit';
         this.channelForm = new FormGroup({
             'name': new FormControl('', Validators.required),
             'webhookApi': new FormControl('', Validators.required),
-            'verificationToken': new FormControl('', Validators.required)
+            'verificationToken': new FormControl('', Validators.required),
+            'enabled':new FormControl(1)
         });
 
         this.channels = this.channelService.getChannels();
@@ -39,8 +42,30 @@ export class ChannelComponent implements OnInit, OnDestroy {
         let name = this.channelForm.value.name;
         let webhookApi = this.channelForm.value.webhookApi;
         let verificationToken = this.channelForm.value.verificationToken;
-        this.channelService.addChannel(new Channel(name, webhookApi, verificationToken));
+        
+        if (this.btnName === 'Submit') {
+            let channel =  new Channel(name, webhookApi, verificationToken);
+            channel.enabled = this.channelForm.value.enabled?1:0;
+            this.channelService.addChannel(channel);
+        } else {
+            this.channel.name =  name;
+            this.channel.webhookApi =  webhookApi;
+            this.channel.verificationToken =  verificationToken;
+            this.channel.enabled = this.channelForm.value.enabled?1:0;
+            this.channelService.updateChannel(this.channel);
+            this.btnName = 'Submit';
+        }
         this.channelForm.reset();
+
+    }
+
+    editChannel(channel: Channel) {
+        this.channel = channel;
+        this.channelForm.controls['name'].patchValue(channel.name);
+        this.channelForm.controls['webhookApi'].patchValue(channel.webhookApi);
+        this.channelForm.controls['verificationToken'].patchValue(channel.verificationToken);
+        this.channelForm.controls['enabled'].patchValue(channel.enabled);
+        this.btnName = 'Update';
     }
 
 
