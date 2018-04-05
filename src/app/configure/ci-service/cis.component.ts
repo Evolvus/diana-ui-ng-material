@@ -14,13 +14,14 @@ export class CIComponent implements OnInit, OnDestroy {
   ciForm: FormGroup;
   ciModels: CIModel[];
   private subscription: Subscription;
+  cis:string[]=['Lex','GoogleDialogFlow','Alexa'];
 
   constructor(private ciService: CIService) { }
 
   ngOnInit() {
 
     this.ciForm = new FormGroup({
-      'name': new FormControl('', Validators.required),
+      'name': new FormControl('Select', Validators.required),
       'accessKey': new FormControl('', Validators.required),
       'secretKey': new FormControl('')
     });

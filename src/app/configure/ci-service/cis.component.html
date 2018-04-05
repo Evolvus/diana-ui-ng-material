@@ -12,9 +12,12 @@
                   <div class="row">
     
                     <div class="col-md-6">
-                      <div class="form-group form-black label-floating is-empty">
-                        <label class="control-label">Name</label>
-                        <input type="text" class="form-control" formControlName="name">
+                      <div class="form-group">
+                        <label class="control-label">Select</label>
+                        <!-- <input type="text" class="form-control" formControlName="name"> -->
+                        <select class="form-control" formControlName="name">
+                          <option *ngFor="let ci of cis" [value]="ci">{{ci}}</option>
+                        </select>
                       </div>
                     </div>
                   </div>

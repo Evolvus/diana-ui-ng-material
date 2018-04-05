@@ -32,6 +32,8 @@ export class CIService {
     }
 
     public addCi(ciModel:CIModel){
+        ciModel.responseCount=0;
+        ciModel.requestCount=0;
         this.http.post(`${this.constants.DIANA_SERVER_URL}/ciservice`,ciModel, { headers: this.headers })
         .subscribe((res)=>{
             this.ciModelsChanged.next(this.getCiModels());

@@ -38,6 +38,7 @@ export class ChannelService {
     }
 
     public addChannel(channel:Channel){
+        
         this.http.post(`${this.constants.DIANA_SERVER_URL}/channel`,channel, { headers: this.headers })
         .subscribe((res)=>{
             this.channelsChanged.next(this.getChannels());
