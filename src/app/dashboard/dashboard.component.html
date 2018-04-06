@@ -16,8 +16,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons text-danger">warning</i>
-                            <a routerLink="uqueries">More details...</a>
+                            <i class="material-icons">date_range</i> Just Updated
                         </div>
                     </div>
                 </div>
@@ -42,7 +41,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6 disabled">
                 <div class="card card-stats">
                     <div class="card-header round slack">
                         <!-- <i class="fa fa-twitter"></i> -->
@@ -56,7 +55,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">update</i> Just Updated
+                            <i class="material-icons">update</i> Service Disabled
                         </div>
                     </div>
                 </div>
@@ -71,11 +70,11 @@
                     </div>
                     <div class="card-content">
                         <p class="category">Answered</p>
-                        <h3 class="title">13245</h3>
+                        <h3 class="title">{{answerCount}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">date_range</i> Last 24 Hours
+                            <i class="material-icons">date_range</i> Just Updated
                         </div>
                     </div>
                 </div>
@@ -83,19 +82,37 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
                 <a routerLink="/uqueries">
                 <div class="card card-stats">
-                    <div class="card-header" data-background-color="red">
+                    <div class="card-header unanswered">
                         <i class="material-icons">info_outline</i>
                     </div>
                     <div class="card-content">
                         <p class="category">Unanswered</p>
-                        <h3 class="title">40</h3>
+                        <h3 class="title">{{unAnswerCount}}</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">local_offer</i> Tracked from Diana
+                            <i class="material-icons">date_range</i> Just Updated
                         </div>
                     </div>
                 </div></a>
+            </div>
+
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              
+                <div class="card card-stats">
+                    <div class="card-header" data-background-color="red">
+                        <i class="material-icons">close</i>
+                    </div>
+                    <div class="card-content">
+                        <p class="category">Failed</p>
+                        <h3 class="title">{{failedCount}}</h3>
+                    </div>
+                    <div class="card-footer">
+                        <div class="stats">
+                            <i class="material-icons">date_range</i> Just Updated
+                        </div>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -103,7 +120,7 @@
         <!--Second RoW -->
         <div class="row">
             <h4>Conversational Intellegence(<strong>AI</strong>) Service</h4>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6 disabled">
                 <div class="card card-stats">
                     <div class="card-header apiai">
                         <!-- <i class="material-icons">done all</i> -->
@@ -111,19 +128,18 @@
                     </div>
                     <div class="card-content">
                         <p class="category">Google</p>
-                        <h3 class="title">5980
+                        <h3 class="title">0/0
                             <small></small>
                         </h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons text-danger">warning</i>
-                            <a routerLink="uqueries">More details...</a>
+                            <i class="material-icons">date_range</i> Service Disabled
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3 col-md-6 col-sm-6">
+            <div class="col-lg-3 col-md-6 col-sm-6 disabled">
                 <div class="card card-stats">
                     <div class="card-header alexa">
                         <!-- <i class="material-icons">store</i> -->
@@ -131,11 +147,11 @@
                     </div>
                     <div class="card-content">
                         <p class="category">Alexa</p>
-                        <h3 class="title">10459</h3>
+                        <h3 class="title">0/0</h3>
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">date_range</i> Last 24 Hours
+                            <i class="material-icons">date_range</i> Service Disabled
                         </div>
                     </div>
                 </div>
@@ -153,7 +169,7 @@
                     </div>
                     <div class="card-footer">
                         <div class="stats">
-                            <i class="material-icons">local_offer</i> Tracked from Amazon
+                            <i class="material-icons">date_range</i> Just Updated
                         </div>
                     </div>
                 </div>

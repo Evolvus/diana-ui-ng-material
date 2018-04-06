@@ -35,6 +35,7 @@ import { AuditService } from '../services/audit.service';
 import { AnswerService } from '../services/answers.service';
 
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -54,6 +55,7 @@ import { AnswerService } from '../services/answers.service';
     ChannelComponent,
     CIComponent,
     AuditComponent
+    
 
   ],
   imports: [
@@ -63,12 +65,12 @@ import { AnswerService } from '../services/answers.service';
     ReactiveFormsModule,
     ComponentsModule,
     RouterModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [AwsSignature, PatternService,
-     AuditService, ChannelService, CIService, 
-     Constants, NotificationService,
-      AnswerService],
+    AuditService, ChannelService, CIService,
+    Constants, NotificationService,
+    AnswerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

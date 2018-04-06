@@ -40,3 +40,13 @@
 .slack {
     background-color:#FEFEFE;
 }
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}
+
+.unanswered {
+    background-color: #CB3837;
+    color:white;
+}

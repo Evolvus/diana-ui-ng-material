@@ -31,6 +31,7 @@ export class ChannelService {
 
         this.http.get(`${this.constants.DIANA_SERVER_URL}/channel`).subscribe((chnls: Channel[]) => {
             this.channels = chnls;
+            
             this.channelsChanged.next(this.channels);
             return this.channels.slice();
         });

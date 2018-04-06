@@ -41,44 +41,45 @@ export class TestSkillComponent implements OnInit {
 
 
     sendDialogFlow() {
-        console.log(this.queryForm);
-        let query = this.queryForm.value.query;
-        let headers = {
-            "Authorization": `Bearer ${this.client_access_key}`
-        }
-        let httpHeader = new HttpHeaders(headers);
-        let apiAiUrl = `https://lgp4j6q0kc.execute-api.us-east-1.amazonaws.com/dev?v=20180309&query=${query}&lang=en&sessionId=1234`;
-        this.request.apiai = `\n${apiAiUrl}`;
+        // console.log(this.queryForm);
+        // let query = this.queryForm.value.query;
+        // let headers = {
+        //     "Authorization": `Bearer ${this.client_access_key}`
+        // }
+        // let httpHeader = new HttpHeaders(headers);
+        // let apiAiUrl = `https://lgp4j6q0kc.execute-api.us-east-1.amazonaws.com/dev?v=20180309&query=${query}&lang=en&sessionId=1234`;
+        // this.request.apiai = `\n${apiAiUrl}`;
         
-        this.http.get(apiAiUrl, { headers: httpHeader }).subscribe((res: any) => {
-            //console.log("Success:" + JSON.stringify(res, null, 2));
-            let speechText = res.result.fulfillment.speech;
-            let data: any = {};
-            try {
-                data = JSON.parse(speechText);
-                if (data.type) {
-                    speechText = data.text;
-                }
-            } catch (error) {
-                console.log('Cannot parse speechText since it is not a json string');
-            }
-            this.response.apiai = res;
-            this.queryForm.reset();
-        }, err => {
-            console.log("Error" + JSON.stringify(err, null, 2));
-        });
+        // this.http.get(apiAiUrl, { headers: httpHeader }).subscribe((res: any) => {
+        //     //console.log("Success:" + JSON.stringify(res, null, 2));
+        //     let speechText = res.result.fulfillment.speech;
+        //     let data: any = {};
+        //     try {
+        //         data = JSON.parse(speechText);
+        //         if (data.type) {
+        //             speechText = data.text;
+        //         }
+        //     } catch (error) {
+        //         console.log('Cannot parse speechText since it is not a json string');
+        //     }
+        //     this.response.apiai = res;
+        //     this.queryForm.reset();
+        // }, err => {
+        //     console.log("Error" + JSON.stringify(err, null, 2));
+        // });
 
         this.sendAlexa();
     }
 
 
     sendAlexa() {
+        
         let input = this.queryForm.value.query;
         console.log("Request Alexa",input);
         let authorization = this.getAuthorizationHeader({ "inputText": input });
         let headers = new HttpHeaders(authorization);
 
-        let apiAlexaUrl = `https://runtime.lex.us-east-1.amazonaws.com/bot/EzipLexBot/alias/ezipLexBot/user/dummyuser/text`;
+        let apiAlexaUrl = `https://runtime.lex.us-east-1.amazonaws.com/bot/dianaBot/alias/dianaBot/user/testUser/text`;
         this.request.alexa = `\n \n${apiAlexaUrl}\n`;
         this.http.post(apiAlexaUrl, { 'inputText': input }, { headers: headers }).subscribe((res: any) => {
             this.response.alexa = res;
@@ -106,4 +107,5 @@ export class TestSkillComponent implements OnInit {
         return this.awsSignature.generateSignature(awsSignatureInputData);
 
     }
+
 }
