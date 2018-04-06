@@ -18,6 +18,7 @@ import { ConfigureComponent } from './configure/configure.component';
 import { PatternComponent } from './configure/pattern/pattern.component';
 import { ChannelComponent } from './configure/channel/channel.component';
 import { CIComponent } from './configure/ci-service/cis.component';
+import { AuditComponent } from './audit/audit.component';
 
 const routes: Routes =[
     { path: 'dashboard',      component: DashboardComponent },
@@ -29,6 +30,7 @@ const routes: Routes =[
     { path: 'notifications',  component: NotificationsComponent },
     { path: 'upgrade',        component: UpgradeComponent },
     { path: 'testSkill',      component: TestSkillComponent},
+    { path: 'audit',      component: AuditComponent},
     { path: 'configure',      component: ConfigureComponent,children:[
       { path: 'pattern',      component: PatternComponent},
       { path: 'channel',      component: ChannelComponent},

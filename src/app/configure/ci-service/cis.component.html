@@ -52,7 +52,7 @@
     
                   <div class="text-center">
                     <button class="btn btn-success waves-light" [disabled]='!this.ciForm.valid'>{{btnName}}</button>
-                    <button class="btn btn-danger waves-light" (click)="!this.ciForm.reset()">Clear</button>
+                    <button class="btn btn-danger waves-light" (click)="this.ciForm.reset()">Clear</button>
                   </div>
     
                 </form>
@@ -77,6 +77,7 @@
                                 <th>Name</th>
                                 <th>Access Key</th>
                                 <th>Secret Key</th>
+                                <th>Enabled</th>
                                 <th>Action</th>  
                             </tr>
                         </thead>
@@ -85,13 +86,16 @@
                                 <td>{{ci.name}}</td>
                                 <td>{{ci.accessKey}}</td>
                                 <td>{{ci.secretKey}}</td>
+                                <td>
+                                  {{ci.enabled ? 'Yes':'No'}}
+                                </td>
                                 <td class="td-actions text-right">
                                   <button type="button" rel="tooltip" title="Edit Channel" (click)="editCi(ci)" class="btn btn-primary btn-simple btn-xs">
                                     <i class="material-icons">edit</i>
                                   </button>
-                                  <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+                                  <!-- <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
                                     <i class="material-icons">close</i>
-                                  </button>
+                                  </button> -->
                                 </td>
                             </tr>
                         </tbody>

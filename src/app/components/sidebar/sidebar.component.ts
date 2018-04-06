@@ -12,7 +12,8 @@ export const ROUTES: RouteInfo[] = [
     { path: 'testSkill', title: 'Test',  icon: 'check_circle', class: '' },
     { path: 'configure', title: 'Configuration',  icon: 'settings', class: '' },
     { path: 'apis', title: 'API\'s',  icon: 'list', class: '' },
-    { path: 'uqueries', title: 'Unanswered Queries',  icon: 'visibility', class: '' }
+    { path: 'uqueries', title: 'Unanswered Queries',  icon: 'report problem', class: '' },
+    { path: 'audit', title: 'Recent Activities',  icon: 'visibility', class: '' }
     // { path: 'user-profile', title: 'User Profile',  icon:'person', class: '' },
     // { path: 'table-list', title: 'Table List',  icon:'content_paste', class: '' },
     // { path: 'typography', title: 'Typography',  icon:'library_books', class: '' },

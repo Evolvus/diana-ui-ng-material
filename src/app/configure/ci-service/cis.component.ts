@@ -25,7 +25,7 @@ export class CIComponent implements OnInit, OnDestroy {
       'name': new FormControl('', Validators.required),
       'accessKey': new FormControl('', Validators.required),
       'secretKey': new FormControl(''),
-      'enabled': new FormControl(true)
+      'enabled': new FormControl(0)
     });
 
     this.ciModels = this.ciService.getCiModels();

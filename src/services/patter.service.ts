@@ -3,6 +3,7 @@ import { Subject } from 'rxjs/Subject';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Constants } from './constant.service';
+import { NotificationService } from './notofication.service';
 
 @Injectable()
 export class PatternService {
@@ -13,7 +14,7 @@ export class PatternService {
         'Content-Type': 'application/json'
     });
 
-    constructor(private http: HttpClient, private constants: Constants) {
+    constructor(private http: HttpClient, private constants: Constants,private notificationService:NotificationService) {
         this.patterns = this.getPatterns();
         // this.patterns.push(...[
         //     new Pattern('Account No', '/^\d{10}$/'),
@@ -39,7 +40,9 @@ export class PatternService {
         this.http.post(`${this.constants.DIANA_SERVER_URL}/blacklist`, pattern, { headers: this.headers })
             .subscribe((res) => {
                 this.patternsChanged.next(this.getPatterns());
+                this.notificationService.showNotification('top','center','Pattern added successfully.','success');
             }, err => {
+                this.notificationService.showNotification('top','center','Something went wrong','danger');
                 console.log("Error  addPattern Response", err)
             });
     }
@@ -50,7 +53,9 @@ export class PatternService {
         this.http.put(`${this.constants.DIANA_SERVER_URL}/blacklist/${pattern._id}`, pattern, { headers: this.headers })
             .subscribe((res) => {
                 this.patternsChanged.next(this.getPatterns());
+                this.notificationService.showNotification('top','center','Pattern updated successfully.','success');
             }, err => {
+                this.notificationService.showNotification('top','center','Something went wrong','danger');
                 console.log("Error  updatePattern Response", err)
             });
     }

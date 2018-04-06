@@ -3,6 +3,7 @@ import { Subject } from 'rxjs/Subject';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Constants } from './constant.service';
+import { NotificationService } from './notofication.service';
 
 @Injectable()
 export class CIService {
@@ -13,7 +14,7 @@ export class CIService {
         'Content-Type': 'application/json'
     });
 
-    constructor(private http:HttpClient,private constants:Constants) {
+    constructor(private http:HttpClient,private constants:Constants,private notificationService:NotificationService) {
         this.ciModels = this.getCiModels();
         // this.ciModels.push(...[
         //     new CIModel('DialogFlow', 'ADAS79DDF#$DFFAGGBD', ''),
@@ -37,7 +38,9 @@ export class CIService {
         this.http.post(`${this.constants.DIANA_SERVER_URL}/ciservice`,ciModel, { headers: this.headers })
         .subscribe((res)=>{
             this.ciModelsChanged.next(this.getCiModels());
+            this.notificationService.showNotification('top','center','CI Service added successfully.','success');
         },err =>{
+            this.notificationService.showNotification('top','center','Something went wrong','danger');
             console.log("Error  Response",err)
         });
     }
@@ -46,7 +49,9 @@ export class CIService {
         this.http.put(`${this.constants.DIANA_SERVER_URL}/ciservice/${ciModel._id}`,ciModel, { headers: this.headers })
         .subscribe((res)=>{
             this.ciModelsChanged.next(this.getCiModels());
+            this.notificationService.showNotification('top','center','CI Service updated successfully.','success');
         },err =>{
+            this.notificationService.showNotification('top','center','Something went wrong','danger');
             console.log("Error  Response",err)
         });
     }

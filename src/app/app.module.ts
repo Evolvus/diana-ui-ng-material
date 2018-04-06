@@ -29,6 +29,10 @@ import { PatternService } from '../services/patter.service';
 import { ChannelService } from '../services/channel.service';
 import { CIService } from '../services/ci.service';
 import { Constants } from '../services/constant.service';
+import { NotificationService } from '../services/notofication.service';
+import { AuditComponent } from './audit/audit.component';
+import { AuditService } from '../services/audit.service';
+import { AnswerService } from '../services/answers.service';
 
 
 @NgModule({
@@ -48,7 +52,8 @@ import { Constants } from '../services/constant.service';
     ConfigureComponent,
     PatternComponent,
     ChannelComponent,
-    CIComponent
+    CIComponent,
+    AuditComponent
 
   ],
   imports: [
@@ -60,7 +65,10 @@ import { Constants } from '../services/constant.service';
     RouterModule,
     AppRoutingModule
   ],
-  providers: [AwsSignature,PatternService,ChannelService,CIService,Constants],
+  providers: [AwsSignature, PatternService,
+     AuditService, ChannelService, CIService, 
+     Constants, NotificationService,
+      AnswerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

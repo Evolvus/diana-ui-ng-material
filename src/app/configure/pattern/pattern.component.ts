@@ -24,7 +24,7 @@ export class PatternComponent implements OnInit, OnDestroy {
     this.patternForm = new FormGroup({
       'name': new FormControl('', Validators.required),
       'pattern': new FormControl('', Validators.required),
-      'enabled':new FormControl(true)
+      'enabled':new FormControl(0)
     });
     this.patterns = this.patternService.getPatterns();
     this.subscription = this.patternService.patternsChanged.subscribe((patrns: Pattern[]) => {

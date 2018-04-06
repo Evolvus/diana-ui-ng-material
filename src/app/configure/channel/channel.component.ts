@@ -27,7 +27,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
             'name': new FormControl('', Validators.required),
             'webhookApi': new FormControl('', Validators.required),
             'verificationToken': new FormControl('', Validators.required),
-            'enabled':new FormControl(1)
+            'enabled':new FormControl(0)
         });
 
         this.channels = this.channelService.getChannels();

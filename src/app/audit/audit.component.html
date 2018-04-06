@@ -1,0 +1,43 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" data-background-color="red">
+                        <h4 class="title">Recent Activities</h4>
+                        <p class="category">Audit details of Diana Server.</p>
+                    </div>
+                    <div class="card-content table-responsive">
+                        <table class="table">
+                            <thead class="text-danger">
+                                <tr>
+                                    <th>Channel</th>
+                                    <th>CI Service</th>
+                                    <th>Request</th>
+                                    <th>Response</th>
+                                    <th>User</th>
+                                    <th>Requested Date</th>
+                                    <th>Last Updated Date</th>
+                                </tr>
+                            </thead>
+                            <tbody *ngFor="let audit of audits">
+                                <tr>
+                                    <td>{{audit.channelName}}</td>
+                                    <td>{{audit.ciserviceName}}</td>
+                                    <td>{{audit.requestData}}</td>
+                                    <td>{{audit.responseData}}</td>
+                                    <td>{{audit.userName}}</td>
+                                    <td>{{audit.requestDate}}</td>
+                                    <td class="text-danger">{{audit.lastUpdatedDate}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
+</div>

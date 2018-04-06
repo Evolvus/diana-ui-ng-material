@@ -50,7 +50,7 @@
 
           <div class="text-center">
             <button class="btn btn-success waves-light" [disabled]='!this.channelForm.valid'>{{btnName}}</button>
-            <button class="btn btn-danger waves-light" (click)="!this.channelForm.reset()">Clear</button>
+            <button class="btn btn-danger waves-light" (click)="this.channelForm.reset()">Clear</button>
           </div>
 
         </form>
@@ -75,6 +75,7 @@
           <tr>
             <th>Name</th>
             <th>URL</th>
+            <th>Enabled</th>
             <th>Verification Token</th>
             <th>Action</th>
           </tr>
@@ -85,14 +86,17 @@
             <td>
               <a href="#">{{channel.webhookApi}}</a>
             </td>
+            <td>
+              {{channel.enabled ? 'Yes':'No'}}
+            </td>
             <td>{{channel.verificationToken}}</td>
             <td class="td-actions text-right">
               <button type="button" rel="tooltip" title="Edit Channel" (click)="editChannel(channel)" class="btn btn-primary btn-simple btn-xs">
                 <i class="material-icons">edit</i>
               </button>
-              <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
+              <!-- <button type="button" rel="tooltip" title="Remove" class="btn btn-danger btn-simple btn-xs">
                 <i class="material-icons">close</i>
-              </button>
+              </button> -->
             </td>
           </tr>
         </tbody>

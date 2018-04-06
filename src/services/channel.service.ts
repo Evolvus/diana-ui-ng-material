@@ -3,6 +3,7 @@ import { Subject } from 'rxjs/Subject';
 import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Constants } from './constant.service';
+import { NotificationService } from './notofication.service';
 
 
 
@@ -17,7 +18,7 @@ export class ChannelService {
         'Content-Type': 'application/json'
     });
 
-    constructor(private http: HttpClient, private constants: Constants) {
+    constructor(private http: HttpClient, private constants: Constants,private notificationService:NotificationService) {
         this.channels = this.getChannels();
         // this.channels.push(...[
         //     new Channel('Facebook', 'https://evolvus.diana.com/ai/facebook', 'ANHJD7DHJDF-YDJKJJH7'),
@@ -45,8 +46,10 @@ export class ChannelService {
         this.http.post(`${this.constants.DIANA_SERVER_URL}/channel`, channel, { headers: this.headers })
             .subscribe((res) => {
                 this.channelsChanged.next(this.getChannels());
+                this.notificationService.showNotification('top','center','Channel added successfully.','success');
             }, err => {
-                console.log("Error addChannel  Response", err)
+                this.notificationService.showNotification('top','center','Something went wrong','danger');
+                console.log("Error addChannel  Response", err);
             });
 
     }
@@ -59,11 +62,15 @@ export class ChannelService {
         this.http.put(`${this.constants.DIANA_SERVER_URL}/channel/${channel._id}`, channel, { headers: this.headers })
             .subscribe((res) => {
                 this.channelsChanged.next(this.getChannels());
+                this.notificationService.showNotification('top','center','Channel updated successfully.','success')
             }, err => {
-                console.log("Error updateChannel Response", err)
+                this.notificationService.showNotification('top','center','Something went wrong','danger')
+                console.log("Error updateChannel Response", err);
             });
     }
 
+
+   
 
     
 

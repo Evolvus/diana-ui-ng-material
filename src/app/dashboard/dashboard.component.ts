@@ -24,8 +24,8 @@ export class DashboardComponent implements OnInit {
 
   ciModels: CIModel[];
 
-  lexSuccessCount:number;
-  lexReqCount:number;
+  lexSuccessCount: number;
+  lexReqCount: number;
 
   constructor(private channelService: ChannelService, private ciService: CIService) { }
 

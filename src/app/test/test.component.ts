@@ -3,6 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { AwsSignatureInputData } from '../aws/aws-signature-input.model';
 import { AwsSignature } from '../aws/aws-signature';
+import { CIModel } from '../../models/ciservice';
+import { CIService } from '../../services/ci.service';
 
 @Component({
     selector: 'app-test',
@@ -17,13 +19,24 @@ export class TestSkillComponent implements OnInit {
     lexFlag: boolean = false;
     dialogFlowFlag: boolean = false;
 
-    constructor(private http: HttpClient, private awsSignature: AwsSignature) {
+    ciModels:CIModel[];
+    accessKey:string;
+    secretKey:string;
+
+    constructor(private http: HttpClient, private awsSignature: AwsSignature,private ciService:CIService) {
     }
 
     ngOnInit() {
         this.queryForm = new FormGroup({
             'query': new FormControl(null, Validators.required)
         });
+        this.ciModels = this.ciService.getCiModels();
+        this.ciModels.forEach(ciModel=>{
+            if(ciModel.name==='Lex'){
+                this.accessKey = ciModel.accessKey;
+                this.secretKey = ciModel.secretKey;
+            }
+        })
     }
 
 
@@ -85,8 +98,8 @@ export class TestSkillComponent implements OnInit {
         awsSignatureInputData.host = 'runtime.lex.us-east-1.amazonaws.com';
         awsSignatureInputData.region = 'us-east-1';
         awsSignatureInputData.service = 'lex';
-        awsSignatureInputData.accessKey = 'AKIAIAQRC3ZWYZX3RAEA';
-        awsSignatureInputData.secretKey = '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';
+        awsSignatureInputData.accessKey = this.accessKey;
+        awsSignatureInputData.secretKey = this.secretKey;
         awsSignatureInputData.contentType = 'application/json';
         awsSignatureInputData.requestParameters = JSON.stringify(requestBody);
         awsSignatureInputData.canonicalQuerystring = '';
