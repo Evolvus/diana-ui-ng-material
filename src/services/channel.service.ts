@@ -4,21 +4,21 @@ import { HttpHeaders, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Constants } from './constant.service';
 import { NotificationService } from './notofication.service';
-
+import { environment } from '../environments/environment';
 
 
 @Injectable()
 export class ChannelService {
 
 
-
+    DIANA_SERVER_URL = environment.dainaUrl;
     channels: Channel[] = [];
     channelsChanged = new Subject<Channel[]>();
     headers = new HttpHeaders({
         'Content-Type': 'application/json'
     });
 
-    constructor(private http: HttpClient, private constants: Constants,private notificationService:NotificationService) {
+    constructor(private http: HttpClient,private notificationService:NotificationService) {
         this.channels = this.getChannels();
         // this.channels.push(...[
         //     new Channel('Facebook', 'https://evolvus.diana.com/ai/facebook', 'ANHJD7DHJDF-YDJKJJH7'),
@@ -29,7 +29,7 @@ export class ChannelService {
 
     getChannels(): Channel[] {
 
-        this.http.get(`${this.constants.DIANA_SERVER_URL}/channel`).subscribe((chnls: Channel[]) => {
+        this.http.get(`${this.DIANA_SERVER_URL}/channel`).subscribe((chnls: Channel[]) => {
             this.channels = chnls;
             
             this.channelsChanged.next(this.channels);
@@ -44,7 +44,7 @@ export class ChannelService {
      * @param channel 
      */
     public addChannel(channel: Channel) {
-        this.http.post(`${this.constants.DIANA_SERVER_URL}/channel`, channel, { headers: this.headers })
+        this.http.post(`${this.DIANA_SERVER_URL}/channel`, channel, { headers: this.headers })
             .subscribe((res) => {
                 this.channelsChanged.next(this.getChannels());
                 this.notificationService.showNotification('top','center','Channel added successfully.','success');
@@ -60,7 +60,7 @@ export class ChannelService {
      * @param channel 
      */
     public updateChannel(channel: Channel) {
-        this.http.put(`${this.constants.DIANA_SERVER_URL}/channel/${channel._id}`, channel, { headers: this.headers })
+        this.http.put(`${this.DIANA_SERVER_URL}/channel/${channel._id}`, channel, { headers: this.headers })
             .subscribe((res) => {
                 this.channelsChanged.next(this.getChannels());
                 this.notificationService.showNotification('top','center','Channel updated successfully.','success')

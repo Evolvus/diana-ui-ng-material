@@ -4,17 +4,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Constants } from './constant.service';
 import { NotificationService } from './notofication.service';
+import { environment } from '../environments/environment';
+
 
 @Injectable()
 export class CIService {
-
+    
+    DIANA_SERVER_URL = environment.dainaUrl;
     ciModels: CIModel[]=[];
     ciModelsChanged=new Subject<CIModel[]>();
     headers = new HttpHeaders({
         'Content-Type': 'application/json'
     });
 
-    constructor(private http:HttpClient,private constants:Constants,private notificationService:NotificationService) {
+    constructor(private http:HttpClient,private notificationService:NotificationService) {
         this.ciModels = this.getCiModels();
         // this.ciModels.push(...[
         //     new CIModel('DialogFlow', 'ADAS79DDF#$DFFAGGBD', ''),
@@ -24,7 +27,7 @@ export class CIService {
     }
 
     getCiModels(): CIModel[] {
-        this.http.get(`${this.constants.DIANA_SERVER_URL}/ciservice`).subscribe((ci:CIModel[])=>{
+        this.http.get(`${this.DIANA_SERVER_URL}/ciservice`).subscribe((ci:CIModel[])=>{
             this.ciModels =  ci;
             this.ciModelsChanged.next(this.ciModels);
             return this.ciModels.slice();
@@ -35,7 +38,7 @@ export class CIService {
     public addCi(ciModel:CIModel){
         ciModel.responseCount=0;
         ciModel.requestCount=0;
-        this.http.post(`${this.constants.DIANA_SERVER_URL}/ciservice`,ciModel, { headers: this.headers })
+        this.http.post(`${this.DIANA_SERVER_URL}/ciservice`,ciModel, { headers: this.headers })
         .subscribe((res)=>{
             this.ciModelsChanged.next(this.getCiModels());
             this.notificationService.showNotification('top','center','CI Service added successfully.','success');
@@ -46,7 +49,7 @@ export class CIService {
     }
 
     public updateCiModel(ciModel:CIModel){
-        this.http.put(`${this.constants.DIANA_SERVER_URL}/ciservice/${ciModel._id}`,ciModel, { headers: this.headers })
+        this.http.put(`${this.DIANA_SERVER_URL}/ciservice/${ciModel._id}`,ciModel, { headers: this.headers })
         .subscribe((res)=>{
             this.ciModelsChanged.next(this.getCiModels());
             this.notificationService.showNotification('top','center','CI Service updated successfully.','success');

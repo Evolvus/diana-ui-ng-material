@@ -31,13 +31,13 @@ export class DashboardComponent implements OnInit {
   lexSuccessCount: number;
   lexReqCount: number;
 
-  answers:Answers[];
-  answerCount:number;
-  unAnswerCount:number;
-  failedCount:number;
-  subscribtion:Subscription;
+  answers: Answers[];
+  answerCount: number;
+  unAnswerCount: number;
+  failedCount: number;
+  subscribtion: Subscription;
 
-  constructor(private answerService:AnswerService,private channelService: ChannelService, private ciService: CIService) { }
+  constructor(private answerService: AnswerService, private channelService: ChannelService, private ciService: CIService) { }
 
   ngOnInit() {
 
@@ -67,20 +67,22 @@ export class DashboardComponent implements OnInit {
     this.ciModels = this.ciService.getCiModels();
     this.cisSubscription = this.ciService.ciModelsChanged.subscribe((cis: CIModel[]) => {
       this.ciModels = cis;
-      this.ciModels.forEach(cis => {
-        this.lexReqCount = cis.requestCount;
-        this.lexSuccessCount = cis.responseCount;
+      this.ciModels.forEach(ci => {
+        if (ci.name === 'Lex') {
+          this.lexReqCount = ci.requestCount;
+          this.lexSuccessCount = ci.responseCount;
+        }
       })
     });
 
 
     this.answers = this.answerService.getAnsweredData();
 
-    this.subscribtion = this.answerService.answersChanged.subscribe((ansr:Answers[])=>{
+    this.subscribtion = this.answerService.answersChanged.subscribe((ansr: Answers[]) => {
       this.answers = ansr;
-      this.answerCount = this.answers.filter(ans=>ans.status==='1').length;
-      this.unAnswerCount = this.answers.filter(ans=>ans.status==='0').length;
-      this.failedCount = this.answers.filter(ans=>ans.status==='2').length;
+      this.answerCount = this.answers.filter(ans => ans.status === '1').length;
+      this.unAnswerCount = this.answers.filter(ans => ans.status === '0').length;
+      this.failedCount = this.answers.filter(ans => ans.status === '2').length;
 
     });
 

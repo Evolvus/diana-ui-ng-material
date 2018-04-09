@@ -2,19 +2,20 @@ import { Pattern } from '../models/pattern';
 import { Subject } from 'rxjs/Subject';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Constants } from './constant.service';
 import { NotificationService } from './notofication.service';
+import { environment } from '../environments/environment';
 
 @Injectable()
 export class PatternService {
 
+    DIANA_SERVER_URL = environment.dainaUrl;
     patterns: Pattern[] = [];
     patternsChanged = new Subject<Pattern[]>();
     headers = new HttpHeaders({
         'Content-Type': 'application/json'
     });
 
-    constructor(private http: HttpClient, private constants: Constants,private notificationService:NotificationService) {
+    constructor(private http: HttpClient,private notificationService:NotificationService) {
         this.patterns = this.getPatterns();
         // this.patterns.push(...[
         //     new Pattern('Account No', '/^\d{10}$/'),
@@ -23,7 +24,7 @@ export class PatternService {
     }
 
     getPatterns(): Pattern[] {
-        this.http.get(`${this.constants.DIANA_SERVER_URL}/blacklist`).subscribe((allPatterns: Pattern[]) => {
+        this.http.get(`${this.DIANA_SERVER_URL}/blacklist`).subscribe((allPatterns: Pattern[]) => {
             console.log("GetPatterns:", allPatterns);
             this.patterns = allPatterns;
             console.log("This patterns:", this.patterns);
@@ -37,7 +38,7 @@ export class PatternService {
 
     public addPattern(pattern: Pattern) {
 
-        this.http.post(`${this.constants.DIANA_SERVER_URL}/blacklist`, pattern, { headers: this.headers })
+        this.http.post(`${this.DIANA_SERVER_URL}/blacklist`, pattern, { headers: this.headers })
             .subscribe((res) => {
                 this.patternsChanged.next(this.getPatterns());
                 this.notificationService.showNotification('top','center','Pattern added successfully.','success');
@@ -50,7 +51,7 @@ export class PatternService {
 
     public updatePattern(pattern: Pattern) {
 
-        this.http.put(`${this.constants.DIANA_SERVER_URL}/blacklist/${pattern._id}`, pattern, { headers: this.headers })
+        this.http.put(`${this.DIANA_SERVER_URL}/blacklist/${pattern._id}`, pattern, { headers: this.headers })
             .subscribe((res) => {
                 this.patternsChanged.next(this.getPatterns());
                 this.notificationService.showNotification('top','center','Pattern updated successfully.','success');
