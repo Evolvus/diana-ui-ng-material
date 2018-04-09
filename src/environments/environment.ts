@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  dainaUrl:'http://192.168.1.51:3000'
+  dainaUrl:'https://immense-eyrie-81104.herokuapp.com'
 };

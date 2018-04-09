@@ -12,31 +12,32 @@ import { CIService } from '../../services/ci.service';
     styleUrls: ['./test.component.css']
 })
 export class TestSkillComponent implements OnInit {
-    client_access_key: string = '<TOKEN>';
+    client_access_key: string;
     request: any = { query: '', alexa: '', apiai: '' };
     response: any = { alexa: '', apiai: '' };
     queryForm: FormGroup;
     lexFlag: boolean = false;
     dialogFlowFlag: boolean = false;
+    lexpath:string;
+    ciModels: CIModel[];
+    accessKey: string;
+    secretKey: string;
 
-    ciModels:CIModel[];
-    accessKey:string;
-    secretKey:string;
-
-    constructor(private http: HttpClient, private awsSignature: AwsSignature,private ciService:CIService) {
+    constructor(private http: HttpClient, private awsSignature: AwsSignature, private ciService: CIService) {
     }
 
     ngOnInit() {
+        this.lexpath= '/bot/dianaBot/alias/dianaServer/user/testDMUser/text';
         this.queryForm = new FormGroup({
             'query': new FormControl(null, Validators.required)
         });
         this.ciModels = this.ciService.getCiModels();
-        this.ciModels.forEach(ciModel=>{
-            if(ciModel.name==='Lex'){
+        this.ciModels.forEach(ciModel => {
+            if (ciModel.name === 'Lex') {
                 this.accessKey = ciModel.accessKey;
                 this.secretKey = ciModel.secretKey;
             }
-            if(ciModel.name==='GoogleDialogFlow'){
+            if (ciModel.name === 'GoogleDialogFlow') {
                 this.client_access_key = ciModel.accessKey;
             }
         })
@@ -51,9 +52,9 @@ export class TestSkillComponent implements OnInit {
         }
         let httpHeader = new HttpHeaders(headers);
         //let apiAiUrl = `https://lgp4j6q0kc.execute-api.us-east-1.amazonaws.com/dev?v=20180309&query=${query}&lang=en&sessionId=1234`;
-        let apiAiUrl =`https://api.dialogflow.com/v1/query?v=20180410&contexts=banking&lang=en&query=${query}&sessionId=12345`;
+        let apiAiUrl = `https://api.dialogflow.com/v1/query?v=20180410&contexts=banking&lang=en&query=${query}&sessionId=12345`;
         this.request.apiai = `\n${apiAiUrl}`;
-        
+
         this.http.get(apiAiUrl, { headers: httpHeader }).subscribe((res: any) => {
             //console.log("Success:" + JSON.stringify(res, null, 2));
             let speechText = res.result.fulfillment.speech;
@@ -77,17 +78,18 @@ export class TestSkillComponent implements OnInit {
 
 
     sendAlexa() {
-        
+
         let input = this.queryForm.value.query;
-        console.log("Request Alexa",input);
-        let authorization = this.getAuthorizationHeader({ "inputText": input });
+        console.log("Request Alexa", input);
+        let inputJson = JSON.stringify({ "inputText": input });
+        let authorization = this.getAuthorizationHeader(inputJson);
         let headers = new HttpHeaders(authorization);
 
-        let apiAlexaUrl = `https://runtime.lex.us-east-1.amazonaws.com/bot/dianaBot/alias/dianaServer/user/testDMUser/text`;
+        let apiAlexaUrl = `https://runtime.lex.us-east-1.amazonaws.com${this.lexpath}`;
         this.request.alexa = `\n \n${apiAlexaUrl}\n`;
-        this.http.post(apiAlexaUrl, { 'inputText': input }, { headers: headers }).subscribe((res: any) => {
+        this.http.post(apiAlexaUrl, inputJson, { headers: headers }).subscribe((res: any) => {
             this.response.alexa = res;
-            console.log('Alexa Res',res);
+            console.log('Alexa Res', res);
             this.queryForm.reset();
         }, err => {
             console.log("Error", err);
@@ -99,14 +101,14 @@ export class TestSkillComponent implements OnInit {
         let awsSignatureInputData = new AwsSignatureInputData();
 
         awsSignatureInputData.method = 'POST';
-        awsSignatureInputData.canonicalUri = '/bot/EzipLexBot/alias/ezipLexBot/user/dummyuser/text';
+        awsSignatureInputData.canonicalUri = this.lexpath;
         awsSignatureInputData.host = 'runtime.lex.us-east-1.amazonaws.com';
         awsSignatureInputData.region = 'us-east-1';
         awsSignatureInputData.service = 'lex';
         awsSignatureInputData.accessKey = this.accessKey;
         awsSignatureInputData.secretKey = this.secretKey;
         awsSignatureInputData.contentType = 'application/json';
-        awsSignatureInputData.requestParameters = JSON.stringify(requestBody);
+        awsSignatureInputData.requestParameters = requestBody;
         awsSignatureInputData.canonicalQuerystring = '';
         return this.awsSignature.generateSignature(awsSignatureInputData);
 
