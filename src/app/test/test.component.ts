@@ -52,7 +52,8 @@ export class TestSkillComponent implements OnInit {
         }
         let httpHeader = new HttpHeaders(headers);
         //let apiAiUrl = `https://lgp4j6q0kc.execute-api.us-east-1.amazonaws.com/dev?v=20180309&query=${query}&lang=en&sessionId=1234`;
-        let apiAiUrl = `https://api.dialogflow.com/v1/query?v=20180410&contexts=banking&lang=en&query=${query}&sessionId=12345`;
+        //let apiAiUrl = `https://api.dialogflow.com/v1/query?v=20180410&contexts=banking&lang=en&query=${query}&sessionId=12345`;
+        let apiAiUrl = `https://api.dialogflow.com/v1/query?v=20150910&lang=en&query=${query}&sessionId=12345&contexts=5ad6ddf4a042810014e40f9f,testUser,shrimank`;
         this.request.apiai = `\n${apiAiUrl}`;
 
         this.http.get(apiAiUrl, { headers: httpHeader }).subscribe((res: any) => {

@@ -5,5 +5,5 @@
 
 export const environment = {
   production: false,
-  dainaUrl:'https://immense-eyrie-81104.herokuapp.com'
+  dainaUrl:'https://powerful-stream-81254.herokuapp.com'
 };
