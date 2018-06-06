@@ -33,6 +33,10 @@ import { NotificationService } from '../services/notofication.service';
 import { AuditComponent } from './audit/audit.component';
 import { AuditService } from '../services/audit.service';
 import { AnswerService } from '../services/answers.service';
+import { IntentComponent } from './intent/intent.component';
+import { IntentService } from 'services/intent.service';
+import { HomeIntentComponent } from './intent/home/home-intent/home-intent.component';
+import { IntentListComponent } from './intent/home/intent-list/intent-list.component';
 
 
 
@@ -54,12 +58,13 @@ import { AnswerService } from '../services/answers.service';
     PatternComponent,
     ChannelComponent,
     CIComponent,
-    AuditComponent
-    
-
+    AuditComponent,
+    IntentComponent,
+    HomeIntentComponent,
+    IntentListComponent
   ],
   imports: [
-    BrowserModule,
+  BrowserModule,
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
@@ -70,7 +75,7 @@ import { AnswerService } from '../services/answers.service';
   providers: [AwsSignature, PatternService,
     AuditService, ChannelService, CIService,
     Constants, NotificationService,
-    AnswerService],
+    AnswerService,IntentService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

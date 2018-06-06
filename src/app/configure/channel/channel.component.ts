@@ -34,7 +34,7 @@ export class ChannelComponent implements OnInit, OnDestroy {
 
         this.subscription = this.channelService.channelsChanged.subscribe((chnls: Channel[]) => {
             this.channels = chnls;
-        })
+        });
 
     }
 
