@@ -79,8 +79,8 @@
       <div class="row">
         <div formArrayName="buttons" class="col-md-8 form-group form-black is-empty">
           <div *ngFor="let btns of intentForm.get('buttons').controls;let y = index" [formGroupName]="y">
-            <input placeholder="Button Name" type="text" id="btnName{{y}}" class="form-control col-md-4" formControlName="btnName">
-            <input placeholder="Value" type="text" id="btnValue{{y}}" class="form-control col-md-4" formControlName="btnValue">
+            <input placeholder="Button Name" type="text" id="btnName{{y}}" class="form-control col-md-4" formControlName="name">
+            <input placeholder="Value" type="text" id="btnValue{{y}}" class="form-control col-md-4" formControlName="value">
             <button type="button" title="Remove" (click)="intentForm.get('buttons').removeAt(y)" class="round btn btn-danger">
               <i class="material-icons">delete</i>
             </button>

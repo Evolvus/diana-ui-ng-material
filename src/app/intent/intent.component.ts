@@ -70,8 +70,8 @@ export class IntentComponent implements OnInit {
   addButtons() {
     (<FormArray>this.intentForm.get('buttons')).push(
       new FormGroup({
-        'btnName': new FormControl(null, Validators.required),
-        'btnValue': new FormControl(null, Validators.required)
+        'name': new FormControl(null, Validators.required),
+        'value': new FormControl(null, Validators.required)
       })
     );
   }
